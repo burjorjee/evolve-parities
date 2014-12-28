@@ -148,3 +148,5 @@ if __name__ == "__main__":
     cloud.start_simulator()
     run_trials()
     render_results()
+    print "Done plotting results. Press Enter to end..."
+    raw_input()
