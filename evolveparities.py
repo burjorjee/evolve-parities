@@ -24,7 +24,7 @@ def bitFreqVisualizer(effectiveAttrIndices, bitFreqs, gen):
     f.show()
 
 def showExperimentTimeStamps():
-    with closing(FileStorage("soda_results.durus")) as durus:
+    with closing(FileStorage("results.durus")) as durus:
         conn = Connection(durus)
         return conn.get_root().keys()
 
@@ -107,7 +107,7 @@ def run_trials():
     for i, result in enumerate(results):
         firstLocusFreqsHists[i, :], lastLocusFreqsHists[i, :] = result
 
-    with closing(FileStorage("soda_results.durus")) as durus:
+    with closing(FileStorage("results.durus")) as durus:
         conn = Connection(durus)
         conn.get_root()[str(int(floor(time.time())))] = (firstLocusFreqsHists, lastLocusFreqsHists)
         conn.commit()
@@ -117,7 +117,7 @@ def run_trials():
 
 def render_results(timestamp=None):
 
-    with closing(FileStorage("soda_results.durus")) as durus:
+    with closing(FileStorage("results.durus")) as durus:
         conn = Connection(durus)
         db = conn.get_root()
         if not timestamp:
