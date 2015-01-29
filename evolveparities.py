@@ -57,10 +57,11 @@ def neap_uga(m, n, gens, probMutation, effectiveAttrIndices, probMisclassificati
             parentIndices[idx] = ctr
         shuffle(parentIndices)
 
-        crossoverMasks = rand(m, n) < 0.5
-        newPop = zeros((m, n), dtype='bool')
-        newPop[crossoverMasks] = pop[parentIndices[:m], :][crossoverMasks]
-        newPop[logical_not(crossoverMasks)] = pop[parentIndices[m:], :][logical_not(crossoverMasks)]
+        newPop = pop
+        # crossoverMasks = rand(m, n) < 0.5
+        # newPop = zeros((m, n), dtype='bool')
+        # newPop[crossoverMasks] = pop[parentIndices[:m], :][crossoverMasks]
+        # newPop[logical_not(crossoverMasks)] = pop[parentIndices[m:], :][logical_not(crossoverMasks)]
 
         mutationMasks = rand(m, n)<probMutation
         pop = logical_xor(newPop,mutationMasks)
@@ -71,7 +72,7 @@ def f(gens):
         k = 7
         n= k + 1
         effectiveAttrIndices = range(k)
-        probMutation = 0.004
+        probMutation = 0.1
         probMisclassification = 0.20
         popSize = 1500
         jid = cloud.call(neap_uga, **dict(m=popSize,
@@ -89,7 +90,7 @@ def cloud_result(jid):
     return result
 
 def run_trials():
-    numTrials = 3000
+    numTrials = 75
     gens = 1000
     from multiprocessing.pool import ThreadPool as Pool
     pool = Pool(50)
@@ -129,7 +130,7 @@ def render_results(timestamp=None):
          (3, 'Last', lastLocusFreqsHists, "non-effective")]
 
     for i, pos, freqsHists, filename in x :
-        freqsHists = freqsHists[:,:801]
+        freqsHists = freqsHists[:,:10001]
         f = figure(i)
         hold(False)
         plot(transpose(freqsHists), color='grey')
