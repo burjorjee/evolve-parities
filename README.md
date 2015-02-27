@@ -15,7 +15,7 @@ The first line can be skipped if `pip` is already installed.
 
 The sourcecode can be downloaded and the experiments run with the following commands:
 
-    git clone https://github.com/burjorjee/evolve-parities.git
+    git clone -b foga-2015 https://github.com/burjorjee/evolve-parities.git
     cd evolve-parities
     python evolveparities.py
     
